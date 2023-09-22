@@ -7,9 +7,9 @@ class Main{
         echo "Page d'accueil";
     }
 
-    public function page404(): void
+    public function aboutUs(): void
     {
-        echo "Page 404";
+        echo "ceci est la page a propos";
     }
 
 }
