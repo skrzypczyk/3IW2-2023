@@ -6,5 +6,6 @@
     </head>
     <body>
         <h1>Template du front</h1>
+        <?php include $this->view;?>
     </body>
 </html>
