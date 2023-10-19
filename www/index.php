@@ -12,7 +12,20 @@ namespace App;
 //Récupérer l'URL et ne garder que l'URI, exemple /login
 //Nettoyage de la chaîne
 // /login?id=3
-use App\Controllers\Security;
+
+spl_autoload_register("App\myAutoloader");
+function myAutoloader($class)
+{
+    //$class = App\Core\View
+    $file = str_replace("App\\", "", $class);
+    $file = str_replace("\\", "/", $file);
+    $file .=".php";
+    if(file_exists($file)){
+        include $file;
+    }
+}
+
+
 
 $uri = strtolower($_SERVER["REQUEST_URI"]);
 $uri = strtok($uri, "?");
