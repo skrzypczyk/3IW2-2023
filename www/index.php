@@ -1,4 +1,7 @@
 <?php
+
+namespace App;
+
 /*
     Si nous sommes sur l'url /login alors il faut instancier
     la class (controller) Security et appeler la method (Action) login
@@ -9,9 +12,12 @@
 //Récupérer l'URL et ne garder que l'URI, exemple /login
 //Nettoyage de la chaîne
 // /login?id=3
+use App\Controllers\Security;
+
 $uri = strtolower($_SERVER["REQUEST_URI"]);
 $uri = strtok($uri, "?");
 if(strlen($uri )>1) $uri = rtrim($uri, "/");
+
 
 
 //Récupérer le contenu du fichier routes.yaml
@@ -36,16 +42,17 @@ if(!empty($listOfRoutes[$uri])){
 
             if(file_exists("Controllers/".$controller.".php")){
                 include "Controllers/".$controller.".php";
-               if(class_exists($controller)){
-                   $object = new $controller();
-                   if(method_exists($object, $action)){
-                       $object->$action();
-                   }else{
-                       die("L'action' ".$action. " n'existe pas");
-                   }
-               }else{
-                   die("Le class controller ".$controller. " n'existe pas");
-               }
+                $controller = "App\\Controllers\\".$controller;
+                if(class_exists($controller)){
+                    $object = new $controller();
+                if(method_exists($object, $action)){
+                    $object->$action();
+                }else{
+                    die("L'action' ".$action. " n'existe pas");
+                }
+                }else{
+                    die("Le class controller ".$controller. " n'existe pas");
+                }
             }else{
                 die("Le fichier controller ".$controller. " n'existe pas");
             }
@@ -59,6 +66,6 @@ if(!empty($listOfRoutes[$uri])){
 }else{
 //S'il n'y a pas de correspondance => page 404
     include "Controllers/Error.php";
-    $object = new Error();
+    $object = new Controllers\Error();
     $object->page404();
 }
