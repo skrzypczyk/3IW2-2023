@@ -82,3 +82,9 @@ if(!empty($listOfRoutes[$uri])){
     $object = new Controllers\Error();
     $object->page404();
 }
+
+
+
+
+
+
