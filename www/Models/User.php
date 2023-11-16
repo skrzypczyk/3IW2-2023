@@ -3,18 +3,18 @@ namespace App\Models;
 use App\Core\DB;
 class User extends DB
 {
-    private int $id;
-    private string $firstname;
-    private string $lastname;
-    private string $email;
-    private string $pwd;
-    private int $status;
-    private bool $isDeleted;
+    private ?int $id = null;
+    protected string $firstname;
+    protected string $lastname;
+    protected string $email;
+    protected string $pwd;
+    protected int $status;
+    protected int $isDeleted;
 
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -114,7 +114,7 @@ class User extends DB
     /**
      * @return bool
      */
-    public function isDeleted(): bool
+    public function isDeleted(): int
     {
         return $this->isDeleted;
     }
@@ -122,7 +122,7 @@ class User extends DB
     /**
      * @param bool $isDeleted
      */
-    public function setIsDeleted(bool $isDeleted): void
+    public function setIsDeleted(int $isDeleted): void
     {
         $this->isDeleted = $isDeleted;
     }
