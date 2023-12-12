@@ -30,7 +30,6 @@ class DB
     {
         //Création et execution d'une requête insert SQL
         $childVars = $this->getChlidVars();
-        var_dump($childVars);
         if (empty($this->getId())) {
             //echo "insert";
             $sql = "INSERT INTO ".$this->table." (".implode(", ", array_keys($childVars)).")
@@ -64,8 +63,18 @@ class DB
         $sql = substr($sql, 0, -5);
         $query = $this->pdo->prepare($sql);
         $query->execute($data);
+
         if($return == "object")
             $query->setFetchMode(\PDO::FETCH_CLASS, get_called_class());
         return $query->fetch();
     }
 }
+
+
+
+
+
+
+
+
+

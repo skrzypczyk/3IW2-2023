@@ -4,6 +4,7 @@ namespace App\Core;
 class View
 {
     private String $view;
+    private array $data = [];
     private String $template;
     public function __construct($view, $template = "back")
     {
@@ -29,7 +30,22 @@ class View
         $this->template = $template;
     }
 
+    public function assign(String $key, $value): void
+    {
+        $this->data[$key]=$value;
+    }
+
+    public function modal(string $name, array $config): void
+    {
+        $modal = "Views/Modals/".$name.".php";
+        if(!file_exists($modal)){
+            die("le modal n'existe pas :".$modal);
+        }
+        include $modal;
+    }
+
     public function __destruct(){
+        extract($this->data);
         include $this->template;
     }
 
